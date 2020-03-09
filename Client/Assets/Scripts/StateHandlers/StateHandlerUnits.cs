@@ -24,6 +24,12 @@ namespace Game.Scripts.StateHandlers
                 new Vector3(unit.position.x, unit.position.y, unit.position.z),
                 new Quaternion());
 
+                
+            Color newColor = Random.ColorHSV();
+            Material newMaterial = new Material(Shader.Find("Standard"));
+            Renderer rendererUnit = gameObjectUnit.GetComponent<Renderer>();
+            rendererUnit.material.SetColor("_Color", newColor);
+
             ControllerUnit controllerUnit = gameObjectUnit.GetComponent<ControllerUnit>();
             controllerUnit.Id = key;
             controllerUnit.DesiredRotation.y = unit.rotation;
