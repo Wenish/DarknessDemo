@@ -46,3 +46,5 @@ MonoBehaviour:
   ServerText: {fileID: 0}
   PrefabUnit: {fileID: 8035110164388584723, guid: b3f535edbee2a1940a69e49021e309fb,
     type: 3}
+  PrefabFlag: {fileID: 2691401888923847758, guid: 36bb625dc96fac74c8462f299c098d8f,
+    type: 3}

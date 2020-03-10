@@ -1,6 +1,5 @@
 using Game.Models;
 using UnityEngine;
-using Game.Scripts.Controllers;
 
 namespace Game.Scripts.StateHandlers
 {

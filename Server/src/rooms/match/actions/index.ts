@@ -4,11 +4,13 @@ import { Client, Room } from 'colyseus'
 import { actionPlayerAdd } from './actionPlayerAdd'
 import { actionPlayerRemove } from './actionPlayerRemove'
 import { actionUnitMoveTo } from './actionUnitMoveTo'
+import { actionFlagPlace } from "./actionFlagPlace"
 
 const actions: IActionTree<IState, Client> = {
     [actionTypes.PLAYER_ADD]:  actionPlayerAdd,
     [actionTypes.PLAYER_REMOVE]: actionPlayerRemove,
-    [actionTypes.UNIT_MOVE_TO]: actionUnitMoveTo
+    [actionTypes.UNIT_MOVE_TO]: actionUnitMoveTo,
+    [actionTypes.FLAG_PLACE]: actionFlagPlace
 }
 export default actions
 

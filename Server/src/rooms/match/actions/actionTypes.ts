@@ -4,6 +4,7 @@
 //D
 //E
 //F
+export const FLAG_PLACE: string = 'FLAG_PLACE'
 //G
 //H
 //I
@@ -20,7 +21,7 @@ export const PLAYER_REMOVE: string = 'PLAYER_REMOVE'
 //Q
 //R
 //S
-//T'
+//T
 //U
 //V
 //W

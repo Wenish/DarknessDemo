@@ -39,6 +39,26 @@ namespace Game.Scripts.Controllers
                     });
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Space) && GameManager.GameRoom != null)
+            {
+                Player player = GameManager.Players[GameManager.GameRoom.SessionId];
+
+                if (GameManager.Units.ContainsKey(player.idUnit))
+                {
+                    GameObject gameObjectUnit = GameManager.Units[player.idUnit];
+                    
+                    await GameManager.GameRoom.Send(new
+                    {
+                        ACTION_TYPE = "FLAG_PLACE",
+                        payload = new
+                        {
+                            gameObjectUnit.transform.position.x,
+                            gameObjectUnit.transform.position.z
+                        }
+                    });
+                }
+                print("space key was pressed");
+            }
         }
     }
 }

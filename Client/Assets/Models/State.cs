@@ -14,5 +14,8 @@ namespace Game.Models {
 
 		[Type(1, "ref", typeof(StateUnits))]
 		public StateUnits stateUnits = new StateUnits();
+
+		[Type(2, "ref", typeof(StateFlags))]
+		public StateFlags stateFlags = new StateFlags();
 	}
 }

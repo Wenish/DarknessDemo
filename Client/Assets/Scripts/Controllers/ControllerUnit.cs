@@ -12,6 +12,12 @@ namespace Game.Scripts.Controllers
         public void Start()
         {
             DesiredPosition = transform.position;
+
+            GameObject gameObjectBody = this.transform.Find("Body").gameObject;
+            Color newColor = Random.ColorHSV();
+            Material newMaterial = new Material(Shader.Find("Standard"));
+            Renderer rendererBody = gameObjectBody.GetComponent<Renderer>();
+            rendererBody.material.SetColor("_Color", newColor);
         }
         public void Update()
         {

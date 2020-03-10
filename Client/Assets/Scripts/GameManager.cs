@@ -11,8 +11,9 @@ namespace Game.Scripts
     {
         public TextMeshProUGUI ServerText; 
         public GameObject PrefabUnit;
+        public GameObject PrefabFlag;
         public Dictionary<string, GameObject> Units = new Dictionary<string, GameObject>();
-        
+        public Dictionary<string, GameObject> Flags = new Dictionary<string, GameObject>();
         public Dictionary<string, Player> Players = new Dictionary<string, Player>();
         public Room<State> GameRoom;
         private Client _client;
@@ -53,6 +54,7 @@ namespace Game.Scripts
         private void InitStateHandler() {
             var stateHandlerPlayers = new StateHandlerPlayers(GameRoom.State.statePlayers, this);
             var stateHandlerUnits = new StateHandlerUnits(GameRoom.State.stateUnits, this);
+            var stateHandlerFlags = new StateHandlerFlags(GameRoom.State.stateFlags, this);
         }
 
         private async void OnApplicationQuit()

@@ -6,11 +6,14 @@ const exec = require('child_process').exec
 var files = 
 [
     //models
+    'src/rooms/match/models/bar.ts',
+    'src/rooms/match/models/flag.ts',
     'src/rooms/match/models/player.ts',
     'src/rooms/match/models/position.ts',
     'src/rooms/match/models/unit.ts',
     //states
     'src/rooms/match/state/index.ts',
+    'src/rooms/match/state/stateFlags.ts',
     'src/rooms/match/state/statePlayers.ts',
     'src/rooms/match/state/stateUnits.ts'
 ]
