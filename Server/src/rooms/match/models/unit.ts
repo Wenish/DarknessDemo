@@ -135,6 +135,8 @@ export class Unit extends Schema {
         unit.energy.current = 0
         unit.energy.regenerationSpeed = 1
 
+        unit.isAlive = true
+
         return unit;
     }
 }

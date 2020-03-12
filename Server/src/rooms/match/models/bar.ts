@@ -12,6 +12,7 @@ export class Bar extends Schema {
 
     add(value: number): void {
         this.current = clamp(this.current + value, 0, this.max)
+        console.log(this.current)
     }
 
     reset(): void {

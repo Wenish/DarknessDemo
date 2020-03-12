@@ -27,6 +27,10 @@ namespace Game.Scripts.StateHandlers
             ControllerUnit controllerUnit = gameObjectUnit.GetComponent<ControllerUnit>();
             controllerUnit.Id = key;
             controllerUnit.DesiredRotation.y = unit.rotation;
+            controllerUnit.HealthCurrent = unit.health.current;
+            controllerUnit.HealthMax = unit.health.max;
+            controllerUnit.EnergyCurrent = unit.energy.current;
+            controllerUnit.EnergyMax = unit.energy.max;
 
             _gameManager.Units.Add(key, gameObjectUnit);
             Debug.Log("Player Add");
@@ -49,6 +53,24 @@ namespace Game.Scripts.StateHandlers
                         case "rotation":
                         {
                             controllerUnit.DesiredRotation.y = float.Parse(obj.Value.ToString());
+                            break;
+                        }
+                        case "health":
+                        {
+                            Bar bar = obj.Value as Bar;
+                            Debug.Log(bar.ToString());
+                            controllerUnit.HealthCurrent = bar.current;
+                            controllerUnit.HealthMax = bar.max;
+                            Debug.Log("Health Change");
+                            break;
+                        }
+                        case "energy":
+                        {
+                            Bar bar = obj.Value as Bar;
+                            Debug.Log(bar.ToString());
+                            controllerUnit.EnergyCurrent = bar.current;
+                            controllerUnit.EnergyMax = bar.max;
+                            Debug.Log("Energy Change");
                             break;
                         }
                     }

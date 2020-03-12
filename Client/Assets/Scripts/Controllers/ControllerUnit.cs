@@ -7,7 +7,13 @@ namespace Game.Scripts.Controllers
         public Vector3 DesiredPosition;
         public Vector3 DesiredRotation;
         public float SpeedLerp = .085f;
+        public float HealthCurrent;
+        public float HealthMax;
+        public float EnergyCurrent;
+        public float EnergyMax;
         public string Id = null;
+
+        private ControllerTag _controllerTag;
 
         public void Start()
         {
@@ -18,6 +24,8 @@ namespace Game.Scripts.Controllers
             Material newMaterial = new Material(Shader.Find("Standard"));
             Renderer rendererBody = gameObjectBody.GetComponent<Renderer>();
             rendererBody.material.SetColor("_Color", newColor);
+            
+            _controllerTag = GetComponentInChildren<ControllerTag>();
         }
         public void Update()
         {
@@ -33,6 +41,12 @@ namespace Game.Scripts.Controllers
                 
                 float angle = Mathf.LerpAngle(transform.eulerAngles.y, DesiredRotation.y, t);
                 transform.eulerAngles = new Vector3(0, angle, 0);
+            }
+
+            if (_controllerTag != null)
+            {
+                _controllerTag.HealthPercent = Mathf.Clamp01(HealthCurrent / HealthMax);
+                _controllerTag.EnergyPercent = Mathf.Clamp01(EnergyCurrent / EnergyMax);
             }
         }
     }
