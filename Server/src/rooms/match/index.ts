@@ -6,6 +6,7 @@ import { State, IState } from './state';
 import actions, { Action } from './actions'
 import * as actionTypes from './actions/actionTypes';
 import utility from "../../utility";
+import { Unit } from "./models/unit";
 
 export default class Match extends Room<IState> {
     constructor () {
@@ -57,7 +58,8 @@ export default class Match extends Room<IState> {
 
     update () {
         for (var id in this.state?.stateUnits?.units) {
-            this.state?.stateUnits?.units[id]?.update(this.clock.deltaTime)
+            const unit: Unit =  this.state?.stateUnits?.units[id]
+           unit?.update(this.clock.deltaTime, this.clock.elapsedTime)
         }
     }
 }

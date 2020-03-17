@@ -84,8 +84,10 @@ export class Unit extends Schema {
         this.isAlive = false
     }
 
-    update(deltaTime: number) {
+    update(deltaTime: number, elapsedTime: number) {
         this.move(deltaTime)
+        this.health.regenerate(elapsedTime)
+        this.energy.regenerate(elapsedTime)
     }
 
     move (deltaTime: number): void {
