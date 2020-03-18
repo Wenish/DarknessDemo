@@ -2,10 +2,11 @@
 using System.Text;
 using UnityEditor;
 using UnityEngine;
- 
+using UnityEngine.SceneManagement;
+
 // Obj exporter component based on: http://wiki.unity3d.com/index.php?title=ObjExporter
 // Dont forget to have the scene running
- 
+
 public class ExportNavMeshToObj : MonoBehaviour
 {
     [MenuItem("Custom/Export NavMesh to mesh")]
@@ -19,7 +20,7 @@ public class ExportNavMeshToObj : MonoBehaviour
         mesh.name = "ExportedNavMesh";
         mesh.vertices = triangulatedNavMesh.vertices;
         mesh.triangles = triangulatedNavMesh.indices;
-        string filename = Application.dataPath +"/" + Path.GetFileNameWithoutExtension(EditorApplication.currentScene) + "NavMesh.obj";
+        string filename = Application.dataPath + "/../../Server/data/" + Path.GetFileNameWithoutExtension(SceneManager.GetActiveScene().name) + ".NavMesh.obj";
         MeshToFile(mesh, filename);
         print("NavMesh exported as '" + filename + "'");
         AssetDatabase.Refresh();

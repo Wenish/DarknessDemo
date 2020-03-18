@@ -17,14 +17,15 @@ export default class Match extends Room<IState> {
 
     // When room is initialized
     async onCreate (options: any) {
-        const navMesh = await utility.loadNavMesh('SampleScene')
+        const mapName: string = options?.map
+        console.log('Selected Map:', options?.map)
+        const navMesh = await utility.loadNavMesh(mapName)
         this.state.navMesh = navMesh;
         console.log('navmesh loaded')
         this.setPatchRate(1000 / 30);
         this.setSimulationInterval(() => this.update()); 
 
         this.clock.setInterval(() => {
-            console.log(this.clock.elapsedTime)
             for(let key in this.state.stateUnits.units) {
                 var unit: Unit = this.state.stateUnits.units[key]
         
@@ -42,6 +43,7 @@ export default class Match extends Room<IState> {
 
     // When client successfully join the room
     onJoin (client: Client, options: any, auth: any) {
+        console.log('Usertoken:', options?.token)
         const actionPlayerAdd: Action<IState, Client> = actions[actionTypes.PLAYER_ADD]
         actionPlayerAdd(this, this.state, true, client, null)
     }

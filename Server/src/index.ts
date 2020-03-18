@@ -14,7 +14,7 @@ const gameServer = new Server({
   server: createServer(app)
 });
 
-gameServer.define('match', rooms.Match)
+gameServer.define('match', rooms.Match).filterBy(['map']);
 
 const monitorUrl = '/colyseus'
 app.use(monitorUrl, monitor());

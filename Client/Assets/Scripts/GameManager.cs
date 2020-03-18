@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Colyseus;
 using Game.Models;
 using Game.Scripts.StateHandlers;
+using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {
@@ -36,10 +37,13 @@ namespace Game.Scripts
             var token = GetArg("-token");
             Debug.Log(token);
 
-            _client = new Client("ws://localhost:3000");
+            _client = new Client("ws://" + serverip + ":" + serverport);
 
             try {
-                GameRoom = await _client.JoinOrCreate<State>("match"/* , Dictionary of options */);
+                var options = new Dictionary<string, object>();
+                options.Add("token", token);
+                options.Add("map", SceneManager.GetActiveScene().name);
+                GameRoom = await _client.JoinOrCreate<State>("match", options);
             } catch {
                 ServerText.text = "Connection failed";
                 return;
