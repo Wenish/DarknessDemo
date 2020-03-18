@@ -17,11 +17,22 @@ export default class Match extends Room<IState> {
 
     // When room is initialized
     async onCreate (options: any) {
-        const navMesh = await utility.loadNavMesh('SampleSceneNavMesh')
+        const navMesh = await utility.loadNavMesh('SampleScene')
         this.state.navMesh = navMesh;
         console.log('navmesh loaded')
         this.setPatchRate(1000 / 30);
         this.setSimulationInterval(() => this.update()); 
+
+        this.clock.setInterval(() => {
+            console.log(this.clock.elapsedTime)
+            for(let key in this.state.stateUnits.units) {
+                var unit: Unit = this.state.stateUnits.units[key]
+        
+                if (unit.isAlive) continue
+
+                unit.revive()
+            }
+        }, 5000)
     }
 
     // Authorize client based on provided options before WebSocket handshake is complete

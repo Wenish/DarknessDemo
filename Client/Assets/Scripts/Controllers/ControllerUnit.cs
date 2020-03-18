@@ -14,20 +14,25 @@ namespace Game.Scripts.Controllers
         public float EnergyCurrent;
         public float EnergyMax;
         public string Id = null;
-
+        public bool IsAlive = true;
         private ControllerTag _controllerTag;
+        private Animator _animator;
 
         public void Start()
         {
             DesiredPosition = transform.position;
 
+            /*
             GameObject gameObjectBody = this.transform.Find("Body").gameObject;
             Color newColor = Random.ColorHSV();
             Material newMaterial = new Material(Shader.Find("Standard"));
             Renderer rendererBody = gameObjectBody.GetComponent<Renderer>();
             rendererBody.material.SetColor("_Color", newColor);
+            */
             
             _controllerTag = GetComponentInChildren<ControllerTag>();
+            _animator = GetComponentInChildren<Animator>();
+            Debug.Log(_animator);
         }
         public void Update()
         {
@@ -35,6 +40,7 @@ namespace Game.Scripts.Controllers
             {
                 var t = Time.deltaTime / SpeedLerp;
                 transform.position = Vector3.Lerp(transform.position, DesiredPosition, t);
+                _animator.SetFloat("SpeedPercent", LocomotionAnimationSpeedPercent, LocomotionAnimationSmoothTime, Time.deltaTime);
             }
 
             if (DesiredRotation != null)
@@ -49,6 +55,10 @@ namespace Game.Scripts.Controllers
             {
                 _controllerTag.HealthPercent = Mathf.Clamp01(HealthCurrent / HealthMax);
                 _controllerTag.EnergyPercent = Mathf.Clamp01(EnergyCurrent / EnergyMax);
+            }
+
+            if (_animator != null) {
+                _animator.SetBool("IsAlive", IsAlive);
             }
         }
     }

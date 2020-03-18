@@ -78,6 +78,11 @@ namespace Game.Scripts.StateHandlers
                             controllerUnit.LocomotionAnimationSpeedPercent = float.Parse(obj.Value.ToString());
                             break;
                         }
+                        case "isAlive":
+                        {
+                            controllerUnit.IsAlive = bool.Parse(obj.Value.ToString());
+                            break;
+                        }  
                     }
                 });
             };

@@ -25,6 +25,8 @@ export class Unit extends Schema {
     }
 
     public setMoveTo (path: Position[]) {
+        if (!this.isAlive) return
+        
         this.moveTo = path
         this.rotate()
         console.log('Set Path', JSON.stringify(path))
@@ -86,10 +88,18 @@ export class Unit extends Schema {
         this.isAlive = false
     }
 
+    public revive () {
+        this.health.reset()
+        this.energy.reset()
+        this.isAlive = true
+    }
+
     update(deltaTime: number, elapsedTime: number) {
-        this.move(deltaTime)
-        this.health.regenerate(elapsedTime)
-        this.energy.regenerate(elapsedTime)
+        if (this.isAlive) {
+            this.move(deltaTime)
+            this.health.regenerate(elapsedTime)
+            this.energy.regenerate(elapsedTime)
+        }
     }
 
     move (deltaTime: number): void {
