@@ -45,12 +45,12 @@ namespace Game.Scripts
                 options.Add("map", SceneManager.GetActiveScene().name);
                 GameRoom = await _client.JoinOrCreate<State>("match", options);
             } catch {
-                ServerText.text = "Connection failed";
+                setServerText("Connection failed");
                 return;
             }
 
             
-            ServerText.text = serverip + ":" + serverport + " room: " + roomname;
+            setServerText(serverip + ":" + serverport + " room: " + roomname);
 
             InitStateHandler();
         }
@@ -78,6 +78,12 @@ namespace Game.Scripts
                 }
             }
             return null;
+        }
+
+        private void setServerText(string text) {
+            if (ServerText == null) return;
+             
+            ServerText.text = text;
         }
     }
 }
