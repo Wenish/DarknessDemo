@@ -12,6 +12,7 @@ export class Unit extends Schema {
     @type(Position) public position: Position
     @type('number') public moveSpeed: number
     @type('number') public rotation: number
+    @type('number') public locomotionAnimationSpeedPercent: number
     @type('boolean') public isAlive: boolean
     @type(Bar) public health: Bar
     @type(Bar) public energy: Bar
@@ -52,6 +53,7 @@ export class Unit extends Schema {
         const isAlive = this.health.current > 0 ? true : false
 
         if (!isAlive) {
+            this.locomotionAnimationSpeedPercent = 0
             this.setMoveTo([])
             this.kill()
         }
@@ -99,7 +101,10 @@ export class Unit extends Schema {
     
         if (isEntityAtDestination) {
             this.moveTo.shift()
-            if (!this.moveTo.length) return
+            if (!this.moveTo.length) {
+                this.locomotionAnimationSpeedPercent = 0
+                return
+            }
 
             // calls itself till nothing is left in the moveTo array
             this.move(deltaTime)
@@ -112,6 +117,8 @@ export class Unit extends Schema {
         const t = utility.clamp(new BigNumber(distanceToTravel).dividedBy(distance).toNumber(), 0, 1)
         this.position.x = utility.lerp(this.position.x, destination.x, t)
         this.position.z = utility.lerp(this.position.z, destination.z, t)
+        // TODO: calculate number from moveSpeedPerSec
+        this.locomotionAnimationSpeedPercent = 0.6
     }
 
     rotate (): void {
@@ -127,6 +134,7 @@ export class Unit extends Schema {
         unit.position = new Position(10, 0, 10)
         unit.moveSpeed = 300
         unit.rotation = 0
+        unit.locomotionAnimationSpeedPercent = 0
         unit.health = new Bar()
         unit.health.max = 300
         unit.health.current = 200

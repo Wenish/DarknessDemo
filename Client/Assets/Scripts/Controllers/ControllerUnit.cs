@@ -7,6 +7,8 @@ namespace Game.Scripts.Controllers
         public Vector3 DesiredPosition;
         public Vector3 DesiredRotation;
         public float SpeedLerp = .085f;
+        public float LocomotionAnimationSmoothTime = .1f;
+        public float LocomotionAnimationSpeedPercent = 0;
         public float HealthCurrent;
         public float HealthMax;
         public float EnergyCurrent;

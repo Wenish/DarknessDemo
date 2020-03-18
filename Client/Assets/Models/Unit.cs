@@ -24,13 +24,16 @@ namespace Game.Models {
 		[Type(4, "number")]
 		public float rotation = 0;
 
-		[Type(5, "boolean")]
+		[Type(5, "number")]
+		public float locomotionAnimationSpeedPercent = 0;
+
+		[Type(6, "boolean")]
 		public bool isAlive = false;
 
-		[Type(6, "ref", typeof(Bar))]
+		[Type(7, "ref", typeof(Bar))]
 		public Bar health = new Bar();
 
-		[Type(7, "ref", typeof(Bar))]
+		[Type(8, "ref", typeof(Bar))]
 		public Bar energy = new Bar();
 	}
 }

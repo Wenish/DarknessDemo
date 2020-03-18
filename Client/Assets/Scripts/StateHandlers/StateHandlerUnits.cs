@@ -73,6 +73,11 @@ namespace Game.Scripts.StateHandlers
                             Debug.Log("Energy Change");
                             break;
                         }
+                        case "locomotionAnimationSpeedPercent":
+                        {
+                            controllerUnit.LocomotionAnimationSpeedPercent = float.Parse(obj.Value.ToString());
+                            break;
+                        }
                     }
                 });
             };
