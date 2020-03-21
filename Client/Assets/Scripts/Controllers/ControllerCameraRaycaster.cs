@@ -42,26 +42,35 @@ namespace Game.Scripts.Controllers
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity))
                 {
-                    if (await IsRaycastHitOnPlayer(hitInfo)) return;
+                    if (await IsRaycastHitOnUnit(hitInfo)) return;
                     MoveToRaycastHit(hitInfo);
                 }
                 Cursor.SetCursor(DefaultCursor, CursorHotspot, CursorMode.Auto);
             }
         }
 
-        private async Task<bool> IsRaycastHitOnPlayer (RaycastHit hitInfo)
+        private async Task<bool> IsRaycastHitOnUnit (RaycastHit hitInfo)
         {
             var gameObjectHit = hitInfo.collider.gameObject;
             var controllerUnit = gameObjectHit.GetComponent<ControllerUnit>();
             if (controllerUnit)
             {
+                try {
+                    Player player = _gameManager.Players[_gameManager.GameRoom.SessionId];
+                    if (player.idUnit == controllerUnit.Id) {
+                        return true;
+                    }
+                } catch {
+                    Debug.Log("No player found with current SessionId");
+                }
+
                 Cursor.SetCursor(AttackCursor, CursorHotspot, CursorMode.Auto);
 
                 if (Input.GetMouseButtonDown(1) && _gameManager.GameRoom != null)
                 {
                     await _gameManager.GameRoom.Send(new
                     {
-                        ACTION_TYPE = "TARGET_PLAYER",
+                        ACTION_TYPE = "UNIT_TARGET_UNIT",
                         payload = new
                         {
                             idUnit = controllerUnit.Id
@@ -82,16 +91,16 @@ namespace Game.Scripts.Controllers
                 Debug.Log(hitInfo.point);
 
                 Player player = _gameManager.Players[_gameManager.GameRoom.SessionId];
-                    await _gameManager.GameRoom.Send(new
+                await _gameManager.GameRoom.Send(new
+                {
+                    ACTION_TYPE = "UNIT_MOVE_TO",
+                    payload = new
                     {
-                        ACTION_TYPE = "UNIT_MOVE_TO",
-                        payload = new
-                        {
-                            hitInfo.point.x,
-                            hitInfo.point.z,
-                            player.idUnit
-                        }
-                    });
+                        hitInfo.point.x,
+                        hitInfo.point.z,
+                        player.idUnit
+                    }
+                });
 
                 
                 if (_lastMoveToIndicator)

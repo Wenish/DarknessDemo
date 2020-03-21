@@ -6,7 +6,6 @@ namespace Game.Scripts.Controllers
 {
     public class ControllerCamera : MonoBehaviour
     {
-        public GameManager GameManager;
         public Vector3 OffsetCamera;
         public float SpeedCamera;
         public float BorderThickness = 10f;
@@ -16,9 +15,11 @@ namespace Game.Scripts.Controllers
         public float ScrollSpeed = 20f;
         public float MinCameraDistance = 3f;
         public float MaxCameraDistance = 120f;
+        private GameManager _gameManager;
 
         void Start()
         {
+            _gameManager = FindObjectOfType<GameManager>();
             CameraLimit = FindObjectOfType<Terrain>();
         }
 
@@ -40,22 +41,22 @@ namespace Game.Scripts.Controllers
             }
 
             if (IsFocusingPlayer) {
-                Player player = GameManager.Players[GameManager.GameRoom.SessionId];
-                GameObject unit = GameManager.Units[player.idUnit];
+                Player player = _gameManager.Players[_gameManager.GameRoom.SessionId];
+                GameObject unit = _gameManager.Units[player.idUnit];
                 if (unit) {
                     CameraTarget = unit.transform;
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && GameManager.GameRoom != null)
+            if (Input.GetKeyDown(KeyCode.Space) && _gameManager.GameRoom != null)
             {
-                Player player = GameManager.Players[GameManager.GameRoom.SessionId];
+                Player player = _gameManager.Players[_gameManager.GameRoom.SessionId];
 
-                if (GameManager.Units.ContainsKey(player.idUnit))
+                if (_gameManager.Units.ContainsKey(player.idUnit))
                 {
-                    GameObject gameObjectUnit = GameManager.Units[player.idUnit];
+                    GameObject gameObjectUnit = _gameManager.Units[player.idUnit];
                     
-                    await GameManager.GameRoom.Send(new
+                    await _gameManager.GameRoom.Send(new
                     {
                         ACTION_TYPE = "FLAG_PLACE",
                         payload = new
