@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037bb881fd36bfe4cb8f2a30ba6d2cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
   OffsetCamera: {x: 0, y: 15, z: -5}
   SpeedCamera: 0.03
   BorderThickness: 10
   IsFocusingPlayer: 0
+  CameraTarget: {fileID: 0}
   CameraLimit: {fileID: 0}
   ScrollSpeed: 20
   MinCameraDistance: 3
@@ -121,4 +121,5 @@ MonoBehaviour:
   DefaultCursor: {fileID: 2800000, guid: 65e8fb645d3d6434aa9e137d80a4f090, type: 3}
   AttackCursor: {fileID: 2800000, guid: b1a8bf4ffe242e445b08e3d1568d0057, type: 3}
   CursorHotspot: {x: 0, y: 0}
-  MoveToIndicator: {fileID: 0}
+  MoveToIndicator: {fileID: 4774853002794385135, guid: 591f4fded5b36d540958ae43cac946ab,
+    type: 3}
