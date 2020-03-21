@@ -7,6 +7,20 @@ namespace Game.Scripts.Controllers
     public class ControllerCamera : MonoBehaviour
     {
         public GameManager GameManager;
+        public Vector3 OffsetCamera;
+        public float SpeedCamera;
+        public float BorderThickness = 10f;
+        public bool IsFocusingPlayer = false;
+        public Transform CameraTarget;
+        public Terrain CameraLimit;
+        public float ScrollSpeed = 20f;
+        public float MinCameraDistance = 3f;
+        public float MaxCameraDistance = 120f;
+
+        void Start()
+        {
+            CameraLimit = FindObjectOfType<Terrain>();
+        }
 
         public async void Update()
         {
@@ -19,26 +33,20 @@ namespace Game.Scripts.Controllers
                 #endif
             }
 
-            if(Input.GetMouseButtonDown(1) && GameManager.GameRoom != null)
+            // Change Camera Type
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    Debug.Log(hit.point);
-                    Player player = GameManager.Players[GameManager.GameRoom.SessionId];
-                    await GameManager.GameRoom.Send(new
-                    {
-                        ACTION_TYPE = "UNIT_MOVE_TO",
-                        payload = new
-                        {
-                            hit.point.x,
-                            hit.point.z,
-                            player.idUnit
-                        }
-                    });
+                IsFocusingPlayer = !IsFocusingPlayer;
+            }
+
+            if (IsFocusingPlayer) {
+                Player player = GameManager.Players[GameManager.GameRoom.SessionId];
+                GameObject unit = GameManager.Units[player.idUnit];
+                if (unit) {
+                    CameraTarget = unit.transform;
                 }
             }
+
             if (Input.GetKeyDown(KeyCode.Space) && GameManager.GameRoom != null)
             {
                 Player player = GameManager.Players[GameManager.GameRoom.SessionId];
@@ -58,6 +66,52 @@ namespace Game.Scripts.Controllers
                     });
                 }
                 print("space key was pressed");
+            }
+        }
+
+        public void LateUpdate()
+        {
+            if (IsFocusingPlayer)
+            {
+                if (CameraTarget != null)
+                {
+                    var desiredPosition = CameraTarget.position + OffsetCamera;
+                    var t = Time.deltaTime / SpeedCamera;
+                    transform.position = Vector3.Lerp(transform.position, desiredPosition, t);
+
+                    //transform.LookAt(GameManager.CameraTarget);
+                }
+            } else {
+                Vector3 pos = transform.position;
+                if (Input.mousePosition.y >= Screen.height - BorderThickness)
+                {
+                    var t = Time.deltaTime / SpeedCamera;
+                    pos.z += t;
+                }
+                if (Input.mousePosition.y <= BorderThickness)
+                {
+                    var t = Time.deltaTime / SpeedCamera;
+                    pos.z -= t;
+                }
+                if (Input.mousePosition.x >= Screen.width - BorderThickness)
+                {
+                    var t = Time.deltaTime / SpeedCamera;
+                    pos.x += t;
+                }
+                if (Input.mousePosition.x <= BorderThickness)
+                {
+                    var t = Time.deltaTime / SpeedCamera;
+                    pos.x -= t;
+                }
+
+                float scroll = Input.GetAxis("Mouse ScrollWheel");
+                pos.y += -scroll * ScrollSpeed * 100f * Time.deltaTime;
+
+                pos.x = Mathf.Clamp(pos.x, CameraLimit.transform.position.x, CameraLimit.terrainData.size.x);
+                pos.y = Mathf.Clamp(pos.y, MinCameraDistance, MaxCameraDistance);
+                pos.z = Mathf.Clamp(pos.z, CameraLimit.transform.position.z, CameraLimit.terrainData.size.z);
+
+                transform.position = pos;
             }
         }
     }

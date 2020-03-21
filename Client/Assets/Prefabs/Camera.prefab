@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1488091075015950499}
   - component: {fileID: 1488091075015950498}
   - component: {fileID: 4147855047278319105}
+  - component: {fileID: 4950111621174822748}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -97,3 +98,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
+  OffsetCamera: {x: 0, y: 15, z: -5}
+  SpeedCamera: 0.03
+  BorderThickness: 10
+  IsFocusingPlayer: 0
+  CameraLimit: {fileID: 0}
+  ScrollSpeed: 20
+  MinCameraDistance: 3
+  MaxCameraDistance: 120
+--- !u!114 &4950111621174822748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488091075015950497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4dd2ed42a155c740b3dd573e97d9f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultCursor: {fileID: 2800000, guid: 65e8fb645d3d6434aa9e137d80a4f090, type: 3}
+  AttackCursor: {fileID: 2800000, guid: b1a8bf4ffe242e445b08e3d1568d0057, type: 3}
+  CursorHotspot: {x: 0, y: 0}
+  MoveToIndicator: {fileID: 0}
