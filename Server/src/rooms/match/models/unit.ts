@@ -4,6 +4,9 @@ import { Schema, type } from '@colyseus/schema'
 import { Position } from './position'
 import utility from '../../../utility'
 import { Bar } from './bar'
+import { WeaponLoadout } from './weaponLoadout'
+import weapons from '../../../../data/weapons.json'
+import { WeaponType, WeaponSlot, Weapon, CombatStyle } from './weapon'
 
 
 export class Unit extends Schema {
@@ -16,6 +19,7 @@ export class Unit extends Schema {
     @type('boolean') public isAlive: boolean
     @type(Bar) public health: Bar
     @type(Bar) public energy: Bar
+    @type(WeaponLoadout) public weaponLoadout: WeaponLoadout
 
     public moveTo: Position[] = [];
 
@@ -93,6 +97,12 @@ export class Unit extends Schema {
         this.energy.reset()
         this.isAlive = true
     }
+    
+    public equipWeaponLoadout (newWeaponLoadout: WeaponLoadout): WeaponLoadout {
+        const oldLoadout = this.weaponLoadout
+        this.weaponLoadout = newWeaponLoadout
+        return oldLoadout
+    }
 
     update(deltaTime: number, elapsedTime: number) {
         if (this.isAlive) {
@@ -156,6 +166,20 @@ export class Unit extends Schema {
         unit.energy.regenerationSpeed = 1
 
         unit.isAlive = true
+
+        const filteredWeapons = weapons.filter(obj => {
+            return obj.type == WeaponType.Bow
+        })
+        const weaponToEquip = filteredWeapons[Math.floor(Math.random() * filteredWeapons.length)]
+        const weaponMain = new Weapon()
+        weaponMain.slot = WeaponSlot[weaponToEquip.slot]
+        weaponMain.type = WeaponType[weaponToEquip.type]
+        weaponMain.combatStyle = CombatStyle[weaponToEquip.combatStyle]
+        weaponMain.attackRange = weaponToEquip.attackRange
+        weaponMain.attackSpeed = weaponToEquip.attackSpeed
+        const weaponLoadout = new WeaponLoadout()
+        weaponLoadout.mainHand = weaponMain
+        unit.weaponLoadout = weaponLoadout
 
         return unit;
     }

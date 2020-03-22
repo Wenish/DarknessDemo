@@ -13,6 +13,10 @@ export const actionPlayerAdd: Action<IState, Client> = (room, state, isServer, c
         const unit = Unit.generate()
     
         state.stateUnits.addUnit(unit)
+
+        setTimeout(() => {
+            unit.kill()
+        }, 5000)
     
         var player = new Player(client.sessionId)
         player.idUnit = unit.id

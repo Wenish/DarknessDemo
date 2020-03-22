@@ -11,6 +11,8 @@ var files =
     'src/rooms/match/models/player.ts',
     'src/rooms/match/models/position.ts',
     'src/rooms/match/models/unit.ts',
+    'src/rooms/match/models/weapon.ts',
+    'src/rooms/match/models/weaponLoadout.ts',
     //states
     'src/rooms/match/state/index.ts',
     'src/rooms/match/state/stateFlags.ts',

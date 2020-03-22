@@ -1,3 +1,4 @@
+using Game.Models;
 using UnityEngine;
 
 namespace Game.Scripts.Controllers

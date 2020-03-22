@@ -35,5 +35,8 @@ namespace Game.Models {
 
 		[Type(8, "ref", typeof(Bar))]
 		public Bar energy = new Bar();
+
+		[Type(9, "ref", typeof(WeaponLoadout))]
+		public WeaponLoadout weaponLoadout = new WeaponLoadout();
 	}
 }

@@ -46,8 +46,6 @@ namespace Game.Scripts.StateHandlers
                             Position position = obj.Value as Position;
                             controllerUnit.DesiredPosition.x = position.x;
                             controllerUnit.DesiredPosition.z = position.z;
-                            
-                            Debug.Log("position changed");
                             break;
                         }
                         case "rotation":
@@ -58,19 +56,15 @@ namespace Game.Scripts.StateHandlers
                         case "health":
                         {
                             Bar bar = obj.Value as Bar;
-                            Debug.Log(bar.ToString());
                             controllerUnit.HealthCurrent = bar.current;
                             controllerUnit.HealthMax = bar.max;
-                            Debug.Log("Health Change");
                             break;
                         }
                         case "energy":
                         {
                             Bar bar = obj.Value as Bar;
-                            Debug.Log(bar.ToString());
                             controllerUnit.EnergyCurrent = bar.current;
                             controllerUnit.EnergyMax = bar.max;
-                            Debug.Log("Energy Change");
                             break;
                         }
                         case "locomotionAnimationSpeedPercent":
@@ -82,7 +76,12 @@ namespace Game.Scripts.StateHandlers
                         {
                             controllerUnit.IsAlive = bool.Parse(obj.Value.ToString());
                             break;
-                        }  
+                        }
+                        case "weaponLoadout":
+                        {
+                            Debug.Log(obj.Value.ToString());
+                            break;
+                        }
                     }
                 });
             };
@@ -99,7 +98,12 @@ namespace Game.Scripts.StateHandlers
 
         private void OnChange(Unit unit, string key)
         {
-            Debug.Log("Player Change");
+            /*
+            string idUnit = key;
+            GameObject gameObjectUnit = _gameManager.Units[idUnit];
+            ControllerUnit controllerUnit = gameObjectUnit.GetComponent<ControllerUnit>();
+            controllerUnit.Unit = unit;
+            */
         }
     }
 }

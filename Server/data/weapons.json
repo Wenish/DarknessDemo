@@ -1,0 +1,58 @@
+[
+    {
+        "id": "1",
+        "type": "Bow",
+        "slot": "TwoHanded",
+        "combatStyle": "Ranged",
+        "attackRange": 20,
+        "attackSpeed": 170
+    },
+    {
+        "id": "2",
+        "type": "Bow",
+        "slot": "TwoHanded",
+        "combatStyle": "Ranged",
+        "attackRange": 15,
+        "attackSpeed": 100
+    },
+    {
+        "id": "3",
+        "type": "Sword",
+        "slot": "TwoHanded",
+        "combatStyle": "Melee",
+        "attackRange": 1,
+        "attackSpeed": 100
+    },
+    {
+        "id": "4",
+        "type": "Sword",
+        "slot": "OneHanded",
+        "combatStyle": "Melee",
+        "attackRange": 1,
+        "attackSpeed": 100
+    },
+    {
+        "id": "5",
+        "type": "Shield",
+        "slot": "OffHand",
+        "combatStyle": "Melee",
+        "attackRange": 1,
+        "attackSpeed": 100
+    },
+    {
+        "id": "6",
+        "type": "Daggers",
+        "slot": "TwoHanded",
+        "combatStyle": "Melee",
+        "attackRange": 1,
+        "attackSpeed": 100
+    },
+    {
+        "id": "7",
+        "type": "Spear",
+        "slot": "OneHanded",
+        "combatStyle": "Ranged",
+        "attackRange": 1,
+        "attackSpeed": 100
+    }
+]
