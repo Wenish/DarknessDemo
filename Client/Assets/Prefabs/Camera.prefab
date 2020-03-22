@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037bb881fd36bfe4cb8f2a30ba6d2cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OffsetCamera: {x: 0, y: 15, z: -5}
-  SpeedCamera: 0.03
+  OffsetCamera: {x: 0, y: 12, z: -4}
+  SpeedCamera: 0.05
   BorderThickness: 10
   IsFocusingPlayer: 0
   CameraTarget: {fileID: 0}
