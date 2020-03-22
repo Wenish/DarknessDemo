@@ -5,24 +5,15 @@ namespace Game.Scripts.Controllers
 {
     public class ControllerUnit : MonoBehaviour
     {
-        public Vector3 DesiredPosition;
-        public Vector3 DesiredRotation;
         public float SpeedLerp = .085f;
         public float LocomotionAnimationSmoothTime = .1f;
-        public float LocomotionAnimationSpeedPercent = 0;
-        public float HealthCurrent;
-        public float HealthMax;
-        public float EnergyCurrent;
-        public float EnergyMax;
         public string Id = null;
-        public bool IsAlive = true;
+        public Unit Unit;
         private ControllerTag _controllerTag;
         private Animator _animator;
 
         public void Start()
         {
-            DesiredPosition = transform.position;
-
             /*
             GameObject gameObjectBody = this.transform.Find("Body").gameObject;
             Color newColor = Random.ColorHSV();
@@ -37,29 +28,30 @@ namespace Game.Scripts.Controllers
         }
         public void Update()
         {
-            if (DesiredPosition != null)
+            if (Unit?.position != null)
             {
                 var t = Time.deltaTime / SpeedLerp;
-                transform.position = Vector3.Lerp(transform.position, DesiredPosition, t);
-                _animator.SetFloat("SpeedPercent", LocomotionAnimationSpeedPercent, LocomotionAnimationSmoothTime, Time.deltaTime);
+                Vector3 desiredPostion = new Vector3(Unit.position.x, Unit.position.y, Unit.position.z);
+                transform.position = Vector3.Lerp(transform.position, desiredPostion, t);
+                _animator.SetFloat("SpeedPercent", Unit.locomotionAnimationSpeedPercent, LocomotionAnimationSmoothTime, Time.deltaTime);
             }
 
-            if (DesiredRotation != null)
+            if (Unit?.rotation != null)
             {
                 var t = Time.deltaTime / SpeedLerp;
-                
-                float angle = Mathf.LerpAngle(transform.eulerAngles.y, DesiredRotation.y, t);
+                Vector3 desiredRotation = new Vector3(0, Unit.rotation, 0);
+                float angle = Mathf.LerpAngle(transform.eulerAngles.y, desiredRotation.y, t);
                 transform.eulerAngles = new Vector3(0, angle, 0);
             }
 
             if (_controllerTag != null)
             {
-                _controllerTag.HealthPercent = Mathf.Clamp01(HealthCurrent / HealthMax);
-                _controllerTag.EnergyPercent = Mathf.Clamp01(EnergyCurrent / EnergyMax);
+                _controllerTag.HealthPercent = Mathf.Clamp01(Unit.health.current / Unit.health.max);
+                _controllerTag.EnergyPercent = Mathf.Clamp01(Unit.energy.current / Unit.energy.max);
             }
 
             if (_animator != null) {
-                _animator.SetBool("IsAlive", IsAlive);
+                _animator.SetBool("IsAlive", Unit.isAlive);
             }
         }
     }

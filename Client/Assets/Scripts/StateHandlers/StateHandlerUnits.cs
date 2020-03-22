@@ -25,66 +25,28 @@ namespace Game.Scripts.StateHandlers
                 new Quaternion());
 
             ControllerUnit controllerUnit = gameObjectUnit.GetComponent<ControllerUnit>();
+            controllerUnit.Unit = unit;
             controllerUnit.Id = key;
-            controllerUnit.DesiredRotation.y = unit.rotation;
-            controllerUnit.HealthCurrent = unit.health.current;
-            controllerUnit.HealthMax = unit.health.max;
-            controllerUnit.EnergyCurrent = unit.energy.current;
-            controllerUnit.EnergyMax = unit.energy.max;
 
             _gameManager.Units.Add(key, gameObjectUnit);
             Debug.Log("Player Add");
 
+            /*
             unit.OnChange += (changes) =>
             {
                 changes.ForEach((obj) =>
                 {
                     switch(obj.Field)
                     {
-                        case "position":
-                        {
-                            Position position = obj.Value as Position;
-                            controllerUnit.DesiredPosition.x = position.x;
-                            controllerUnit.DesiredPosition.z = position.z;
-                            break;
-                        }
-                        case "rotation":
-                        {
-                            controllerUnit.DesiredRotation.y = float.Parse(obj.Value.ToString());
-                            break;
-                        }
-                        case "health":
-                        {
-                            Bar bar = obj.Value as Bar;
-                            controllerUnit.HealthCurrent = bar.current;
-                            controllerUnit.HealthMax = bar.max;
-                            break;
-                        }
-                        case "energy":
-                        {
-                            Bar bar = obj.Value as Bar;
-                            controllerUnit.EnergyCurrent = bar.current;
-                            controllerUnit.EnergyMax = bar.max;
-                            break;
-                        }
-                        case "locomotionAnimationSpeedPercent":
-                        {
-                            controllerUnit.LocomotionAnimationSpeedPercent = float.Parse(obj.Value.ToString());
-                            break;
-                        }
                         case "isAlive":
                         {
                             controllerUnit.IsAlive = bool.Parse(obj.Value.ToString());
                             break;
                         }
-                        case "weaponLoadout":
-                        {
-                            Debug.Log(obj.Value.ToString());
-                            break;
-                        }
                     }
                 });
             };
+            */
         }
 
         private void OnRemove(Unit unit, string key)
@@ -98,12 +60,10 @@ namespace Game.Scripts.StateHandlers
 
         private void OnChange(Unit unit, string key)
         {
-            /*
             string idUnit = key;
             GameObject gameObjectUnit = _gameManager.Units[idUnit];
             ControllerUnit controllerUnit = gameObjectUnit.GetComponent<ControllerUnit>();
             controllerUnit.Unit = unit;
-            */
         }
     }
 }

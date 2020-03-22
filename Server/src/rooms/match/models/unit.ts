@@ -59,8 +59,6 @@ export class Unit extends Schema {
         const isAlive = this.health.current > 0 ? true : false
 
         if (!isAlive) {
-            this.locomotionAnimationSpeedPercent = 0
-            this.setMoveTo([])
             this.kill()
         }
 
@@ -89,6 +87,8 @@ export class Unit extends Schema {
     public kill () {
         this.health.remove(this.health.max)
         this.energy.remove(this.energy.max)
+        this.locomotionAnimationSpeedPercent = 0
+        this.setMoveTo([])
         this.isAlive = false
     }
 
