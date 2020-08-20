@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    colyseus-server:
+        build: ./Server
+        volumes: 
+            - ./Server:/usr/src/app
+        ports:
+            - 3000:3000

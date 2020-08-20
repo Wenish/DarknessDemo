@@ -16,7 +16,11 @@ Using Unity3d for display the Game World.
 
 
 ## Docker
+Run command:
+`docker-compose up -d`
 
+
+Specific image:
 `cd server`
 
 `docker build -t wenish/colyseus-server .`
